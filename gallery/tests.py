@@ -32,3 +32,7 @@ class GalleryViewsTestCase(TestCase):
         self.assertTemplateUsed(response, 'image_detail.html')
         self.assertIn('image', response.context)
         self.assertEqual(response.context['image'], self.image)
+
+    def test_image_detail_404_for_invalid_id(self):
+        response = self.client.get(reverse('image_detail', args=[999]))
+        self.assertEqual(response.status_code, 404)
